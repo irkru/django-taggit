@@ -238,7 +238,7 @@ class _TaggableManager(models.Manager):
         qs = self.through.objects.values(*six.iterkeys(lookup_kwargs))
         qs = qs.annotate(n=models.Count('pk'))
         qs = qs.exclude(**lookup_kwargs)
-        qs = qs.filter(tag__in=self.all())
+        qs = qs.filter(tag__in=list(self.all()))
         qs = qs.order_by('-n')
 
         # TODO: This all feels like a bit of a hack.
